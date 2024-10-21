@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Manager</title>
+    <link rel="stylesheet" href="finance.css">
+    <script src="finance.js" defer></script>
+</head>
+<body>
+    <div id="container">
+        <h1>Personal Finance Manager</h1>
+        <nav>
+            <ul>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#budget">Set Budget</a></li>
+                <li><a href="#expenses">Track Expenses</a></li>
+                <li><a href="#goals">Financial Goals</a></li>
+            </ul>
+        </nav>
+
+        <section id="dashboard" class="container">
+            <h2>Dashboard</h2>
+            <div id="dashboard-content">
+                <!-- Data from JS will be populated here -->
+            </div>
+        </section>
+
+        <section id="budget" class="container">
+            <h2>Set Budget</h2>
+            <form id="budget-form">
+                <label for="monthly-income">Monthly Income:</label>
+                <input type="number" id="monthly-income" required>
+
+                <label for="monthly-budget">Budget Amount:</label>
+                <input type="number" id="monthly-budget" required>
+
+                <button type="submit">Save Budget</button>
+            </form>
+        </section>
+
+        <section id="expenses" class="container">
+            <h2>Track Expenses</h2>
+            <form id="expenses-form">
+                <label for="expense-category">Category:</label>
+                <select id="expense-category" required>
+                    <option value="groceries">Groceries</option>
+                    <option value="rent">Rent</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="transportation">Transportation</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="expense-amount">Amount:</label>
+                <input type="number" id="expense-amount" required>
+
+                <button type="submit">Add Expense</button>
+            </form>
+        </section>
+
+        <section id="goals" class="container">
+            <h2>Financial Goals</h2>
+            <form id="goals-form">
+                <label for="goal-name">Goal Name:</label>
+                <input type="text" id="goal-name" required>
+
+                <label for="goal-amount">Goal Amount:</label>
+                <input type="number" id="goal-amount" required>
+
+                <button type="submit">Set Goal</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Personal Finance Manager</p>
+    </footer>
+</body>
+</html>
