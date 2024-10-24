@@ -1,106 +1,76 @@
-/* General styles */
-html, body {
-    height: 100%;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
     margin: 0;
     padding: 0;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
-
 #container {
-    flex: 1;
-    width: 80%;
-    margin: auto;
+    max-width: 900px;
+    margin: 0 auto;
     padding: 20px;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
-h1, h2 {
-    color: #333;
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.8em;
+    color: #2c3e50;
+}
+
+main p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 nav ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 nav ul li {
-    display: inline;
-    margin-right: 20px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: #007BFF;
-}
-
-.container {
-    margin-bottom: 30px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-}
-
-input, select, button {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-input:focus, select:focus, button:focus {
-    border-color: #007BFF;
-    outline: none;
-}
-
-/* Button styles */
-#ask-ai-button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
     color: #fff;
-    background-color: #007BFF;
-    border: none;
+    background-color: #3498db;
+    font-weight: bold;
+    padding: 15px 30px;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-align: center;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-right: 20px;
 }
 
-#ask-ai-button:hover {
-    background-color: #0056b3;
+nav ul li a:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
 }
 
-#ask-ai-button:active {
-    background-color: #004085;
-}
-
-/* AI Suggestions */
-#ai-suggestions {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f1f1f1;
+nav ul li img {
+    width: 30px;
+    height: 30px;
     border-radius: 5px;
-    font-size: 14px;
-    color: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Footer */
 footer {
     text-align: center;
-    padding: 20px 0;
-    background-color: #333;
-    color: #fff;
-    width: 100%;
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #777;
 }

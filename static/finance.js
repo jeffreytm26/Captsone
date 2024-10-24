@@ -5,10 +5,73 @@ document.addEventListener("DOMContentLoaded", () => {
     let goals = [];
 
     const budgetForm = document.getElementById("budget-form");
+    const growthChartCanvas = document.getElementById('growth-chart');
+
     budgetForm.addEventListener("submit", (event) => {
         event.preventDefault();
         monthlyIncome = parseFloat(document.getElementById("monthly-income").value);
         monthlyBudget = parseFloat(document.getElementById("monthly-budget").value);
+        const years = parseInt(document.getElementById("years").value);
+
+        const monthlySavings = monthlyIncome - monthlyBudget;
+        const annualSavings = monthlySavings * 12;
+        const totalIncomeData = [];
+        const totalBudgetData = [];
+        const labels = [];
+
+        for (let year = 1; year <= years; year++) {
+            totalIncomeData.push(monthlyIncome * 12 * year);
+            totalBudgetData.push(monthlyBudget * 12 * year);
+            labels.push(`Year ${year}`);
+        }
+
+        new Chart(growthChartCanvas, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Total Income',
+                        data: totalIncomeData,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        fill: false
+                    },
+                    {
+                        label: 'Total Budget',
+                        data: totalBudgetData,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2,
+                        fill: false
+                    },
+                    {
+                        label: 'Money Growth Over Time',
+                        data: totalIncomeData.map((income, index) => income - totalBudgetData[index]),
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 2,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Years'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Amount ($)'
+                        }
+                    }
+                }
+            }
+        });
+
         updateDashboard();
     });
 
