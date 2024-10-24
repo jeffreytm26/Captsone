@@ -4,8 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Finance Manager</title>
-    <link rel="stylesheet" href="finance.css">
-    <script src="finance.js" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='finance.css') }}">
+    <script defer src="{{ url_for('static', filename='finance.js') }}"></script>
+    <script>
+        async function askAI() {
+            const prompt = document.getElementById('ai-prompt').value;
+            const response = await fetch('/generate-content', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ prompt })
+            });
+
+            const data = await response.json();
+            const suggestionsDiv = document.getElementById('ai-suggestions');
+            if (data.error) {
+                suggestionsDiv.textContent = 'Error: ' + data.error;
+            } else {
+                suggestionsDiv.textContent = data.suggestions;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('ask-ai-button').addEventListener('click', askAI);
+        });
+    </script>
 </head>
 <body>
     <div id="container">
@@ -69,6 +93,15 @@
 
                 <button type="submit">Set Goal</button>
             </form>
+        </section>
+
+        <section id="ai-help" class="container">
+            <h2>Need Help?</h2>
+            <input type="text" id="ai-prompt" placeholder="Enter your question..." />
+            <button id="ask-ai-button">Ask AI for Help</button>
+            <div id="ai-suggestions">
+                <!-- AI suggestions will be populated here -->
+            </div>
         </section>
     </div>
 
