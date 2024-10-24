@@ -1,26 +1,34 @@
 from flask import Flask, render_template, request, jsonify
 import google.generativeai as genai
 
-app = Flask(__name__)  # Initialize the Flask application
+app = Flask(__name__)
 
-# Set up the Gemini API key
-GEMINI_KEY = 'AIzaSyD65xAbqi1kaKfZ6sPuNAQ650iZIIEavD8'  # Replace with your actual API key
+GEMINI_KEY = 'AIzaSyD65xAbqi1kaKfZ6sPuNAQ650iZIIEavD8'
 genai.configure(api_key=GEMINI_KEY)
-model = genai.GenerativeModel('gemini-pro')  # Initialize the generative model
+model = genai.GenerativeModel('gemini-pro')
 
-@app.route('/', methods=['GET', 'POST'])  # Define the route for the index page
+@app.route('/')
 def index():
-    if request.method == 'POST':  # If the request method is POST
-        user_input = request.form['user_input']  # Get user input from the form
+    return render_template('index.html')
 
-        # Generate a response using the model
-        response = model.generate_content(user_input)  # Adjust this as necessary based on your API
+@app.route('/budget')
+def budget():
+    return render_template('budget.html')
 
-        # Render the result template with the generated content
-        return render_template('result.html', response=response.text)
-    else:
-        # Render the index template for GET requests
-        return render_template('index.html')
+@app.route('/goals')
+def goals():
+    return render_template('goals.html')
 
-if __name__ == '__main__':  # Run the app if this file is executed directly
-    app.run(debug=True)  # Run the Flask app in debug mode
+@app.route('/ai-help')
+def ai_help():
+    return render_template('ai_help.html')
+
+@app.route('/generate-content', methods=['POST'])
+def generate_content():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    response = model.generate_content(prompt)
+    return jsonify({'suggestions': response.text})
+
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Goals</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='finance.css') }}">
+    <script defer src="{{ url_for('static', filename='finance.js') }}"></script>
+</head>
+<body>
+    <div id="container">
+        <h1>Financial Goals</h1>
+        <form id="goals-form">
+            <label for="goal-name">Goal Name:</label>
+            <input type="text" id="goal-name" required>
+            <label for="goal-amount">Goal Amount:</label>
+            <input type="number" id="goal-amount" required>
+            <button type="submit">Set Goal</button>
+        </form>
+    </div>
+</body>
+</html>

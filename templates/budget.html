@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Budget</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='finance.css') }}">
+    <script defer src="{{ url_for('static', filename='finance.js') }}"></script>
+</head>
+<body>
+    <div id="container">
+        <h1>Set Budget</h1>
+        <form id="budget-form">
+            <label for="monthly-income">Monthly Income:</label>
+            <input type="number" id="monthly-income" required>
+            <label for="monthly-budget">Budget Amount:</label>
+            <input type="number" id="monthly-budget" required>
+            <button type="submit">Save Budget</button>
+        </form>
+    </div>
+</body>
+</html>

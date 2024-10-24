@@ -6,40 +6,16 @@
     <title>Personal Finance Manager</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='finance.css') }}">
     <script defer src="{{ url_for('static', filename='finance.js') }}"></script>
-    <script>
-        async function askAI() {
-            const prompt = document.getElementById('ai-prompt').value;
-            const response = await fetch('/generate-content', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ prompt })
-            });
-
-            const data = await response.json();
-            const suggestionsDiv = document.getElementById('ai-suggestions');
-            if (data.error) {
-                suggestionsDiv.textContent = 'Error: ' + data.error;
-            } else {
-                suggestionsDiv.textContent = data.suggestions;
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('ask-ai-button').addEventListener('click', askAI);
-        });
-    </script>
 </head>
 <body>
     <div id="container">
         <h1>Personal Finance Manager</h1>
         <nav>
             <ul>
-                <li><a href="#dashboard">Dashboard</a></li>
-                <li><a href="#budget">Set Budget</a></li>
-                <li><a href="#expenses">Track Expenses</a></li>
-                <li><a href="#goals">Financial Goals</a></li>
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/budget">Set Budget</a></li>
+                <li><a href="/goals">Financial Goals</a></li>
+                <li><a href="/ai-help">AI Help</a></li>
             </ul>
         </nav>
 
