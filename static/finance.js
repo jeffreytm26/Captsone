@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const budgetForm = document.getElementById("budget-form");
     const growthChartCanvas = document.getElementById('growth-chart');
 
+    // Handle Budget Form Submission
     budgetForm.addEventListener("submit", (event) => {
         event.preventDefault();
         monthlyIncome = parseFloat(document.getElementById("monthly-income").value);
@@ -14,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const years = parseInt(document.getElementById("years").value);
 
         const monthlySavings = monthlyIncome - monthlyBudget;
-        const annualSavings = monthlySavings * 12;
         const totalIncomeData = [];
         const totalBudgetData = [];
         const labels = [];
@@ -128,30 +128,86 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    const askAiButton = document.getElementById("ask-ai-button");
-    askAiButton.addEventListener("click", async () => {
-        const userData = { income: monthlyIncome, budget: monthlyBudget, expenses: expenses, goals: goals };
+    // AI Button Handling
+   askAiButton.addEventListener("click", async () => {
+    const userInput = document.getElementById("ai-prompt").value;
 
-        try {
-            // Send a request to the Python Flask backend
-            const response = await fetch('/generate-content', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    prompt: `Based on the following data, suggest financial improvements: Income: ${userData.income}, Budget: ${userData.budget}, Expenses: ${JSON.stringify(userData.expenses)}, Goals: ${JSON.stringify(userData.goals)}`
-                }),
-            });
+    if (userInput.trim() === "") {
+        output.innerHTML = 'Please enter a question.';
+        return;
+    }
 
-            const aiResponse = await response.json();
-            const aiSuggestions = document.getElementById("ai-suggestions");
-            aiSuggestions.innerHTML = "<h3>AI Suggestions</h3>";
-            aiSuggestions.innerHTML += `<p>${aiResponse.suggestions}</p>`;
-        } catch (error) {
-            console.error("Error with AI request:", error);
-            const aiSuggestions = document.getElementById("ai-suggestions");
-            aiSuggestions.innerHTML = "<p>There was an error getting AI suggestions. Please try again later.</p>";
+    output.innerHTML = 'Generating AI suggestions...';  // Placeholder text
+
+    try {
+        const response = await fetch('/generate-content', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt: userInput })
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+            output.innerHTML = `<p>Error: ${data.error}</p>`;
+        } else {
+            output.innerHTML = `<p>${data.suggestions}</p>`;  // Display the AI suggestions
         }
-    });
+    } catch (e) {
+        output.innerHTML = `<p>Error: ${e.message}</p>`;
+    }
 });
+
+
+
+// Function to handle Gemini streaming
+async function* streamGemini({ model = 'gemini-pro', contents = [] } = {}) {
+    let response = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ model, contents })
+    });
+
+    yield* streamResponseChunks(response);
+}
+
+// Helper function for streaming response chunks
+async function* streamResponseChunks(response) {
+    let buffer = '';
+    const CHUNK_SEPARATOR = '\n\n';
+
+    let processBuffer = async function* (streamDone = false) {
+        while (true) {
+            let chunkSeparatorIndex = buffer.indexOf(CHUNK_SEPARATOR);
+            if (streamDone && chunkSeparatorIndex < 0) {
+                chunkSeparatorIndex = buffer.length;
+            }
+            if (chunkSeparatorIndex < 0) break;
+
+            let chunk = buffer.substring(0, chunkSeparatorIndex);
+            buffer = buffer.substring(chunkSeparatorIndex + CHUNK_SEPARATOR.length);
+            chunk = chunk.replace(/^data:\s*/, '').trim();
+            if (!chunk) continue;
+
+            let { error, text } = JSON.parse(chunk);
+            if (error) throw new Error(error.message || JSON.stringify(error));
+            yield text;
+        }
+    };
+
+    const reader = response.body.getReader();
+    try {
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            buffer += new TextDecoder().decode(value);
+            yield* processBuffer();
+        }
+    } finally {
+        reader.releaseLock();
+    }
+
+    yield* processBuffer(true);
+}
