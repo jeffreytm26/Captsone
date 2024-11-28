@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Goals</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='finance.css') }}">
-    <script defer src="{{ url_for('static', filename='finance.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='goals.js') }}"></script>
 </head>
 <body>
+    <!-- Back Button -->
+    <a href="{{ url_for('index') }}" class="back-button">Back to Home</a>
     <div id="container">
         <h1>Financial Goals</h1>
+        <!-- Form for setting goals -->
         <form id="goals-form">
             <label for="goal-name">Goal Name:</label>
             <input type="text" id="goal-name" required>
@@ -17,6 +20,10 @@
             <input type="number" id="goal-amount" required>
             <button type="submit">Set Goal</button>
         </form>
+        <!-- Dashboard content container -->
+        <div id="dashboard-content">
+            <p>No financial goals added yet.</p>
+        </div>
     </div>
 </body>
 </html>

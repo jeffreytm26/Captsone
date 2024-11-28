@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Set Budget</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='finance.css') }}">
-    <script defer src="{{ url_for('static', filename='finance.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='budget.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <!-- Back Button -->
+    <a href="{{ url_for('index') }}" class="back-button">Back to Home</a>
     <div id="container">
         <h1>Set Budget</h1>
         <form id="budget-form">
