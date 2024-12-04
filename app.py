@@ -34,6 +34,23 @@ def goals():
 def home_planning():
     return render_template('home_planning.html')
 
+@app.route("/car-planning")
+def car_planning():
+    return render_template("car_planning.html")
+
+@app.route("/debt-management")
+def debt_management():
+    return render_template("debt_management.html")
+
+@app.route("/retirement-planning")
+def retirement_planning():
+    return render_template("retirement_planning.html")
+
+@app.route("/finance-trivia")
+def finance_trivia():
+    return render_template("finance_trivia.html")
+
+
 @app.route('/ai-help')
 def ai_help():
     """

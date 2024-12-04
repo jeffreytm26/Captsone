@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Trivia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='finance.css') }}">
+    <script defer src="{{ url_for('static', filename='finance_trivia.js') }}"></script>
+</head>
+<body>
+    <!-- Back Button -->
+    <a href="{{ url_for('index') }}" class="back-button">Back to Home</a>
+    <div id="container">
+        <header>
+            <h1>Finance Trivia</h1>
+        </header>
+
+        <main id="quiz-container">
+            <p>Test your knowledge about finance and learn as you go!</p>
+
+            <div id="question-container">
+                <h2 id="question"></h2>
+                <ul id="options-list">
+                    <!-- Options will be dynamically inserted here -->
+                </ul>
+            </div>
+
+            <div id="score-container">
+                Score: <span id="score">0</span>
+            </div>
+
+            <button id="next-button">Next Question</button>
+        </main>
+
+        <footer>
+            <p>Learn about finance and make smart decisions.</p>
+        </footer>
+    </div>
+</body>
+</html>

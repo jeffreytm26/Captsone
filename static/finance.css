@@ -66,7 +66,6 @@ main p {
     margin-right: auto;
 }
 
-
 /* Navigation Menu */
 nav ul {
     list-style: none;
@@ -119,7 +118,7 @@ footer {
 }
 
 /* Form Inputs */
-input[type="text"], textarea {
+input[type="text"], input[type="number"], input[type="date"], textarea, select {
     width: 100%;
     height: 50px;
     padding: 10px;
@@ -131,12 +130,13 @@ input[type="text"], textarea {
     margin-bottom: 20px;
 }
 
-input[type="text"]:focus, textarea:focus {
+input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, textarea:focus, select:focus {
     border-color: #b8860b;
     box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
     outline: none;
 }
 
+/* Back Button */
 .back-button {
     display: inline-block;
     padding: 12px 25px;
@@ -159,7 +159,6 @@ input[type="text"]:focus, textarea:focus {
     transform: scale(1.1); /* Slightly enlarge without tilt */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
-
 
 /* Animations */
 @keyframes glow {
@@ -190,6 +189,7 @@ input[type="text"]:focus, textarea:focus {
     }
 }
 
+/* Advice Section */
 #advice {
     margin-top: 20px;
     background: linear-gradient(145deg, #f9f9f9, #e5e4e2);
@@ -208,4 +208,150 @@ input[type="text"]:focus, textarea:focus {
 #advice p {
     font-size: 1.2em;
     color: #333;
+}
+
+/* House Tab Styles */
+#house-container, #car-container {
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#house-container h2, #car-container h2 {
+    color: #d4af37;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.house-form, .car-form {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    margin-bottom: 20px;
+}
+
+.house-form input, .car-form input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #d4af37;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    font-size: 1em;
+}
+
+.house-form input:focus, .car-form input:focus {
+    border-color: #b8860b;
+    outline: none;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+}
+
+button[type="submit"] {
+    background: linear-gradient(145deg, #d4af37, #b8860b);
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(145deg, #e5e4e2, #d4af37);
+    transform: scale(1.1);
+}
+
+/* Responsiveness */
+@media (max-width: 600px) {
+    #container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 2.5em;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul li a {
+        font-size: 1.1em;
+        padding: 10px 20px;
+    }
+
+    .back-button {
+        left: 15px;
+        top: 15px;
+    }
+}
+
+/* Trivia Section */
+#trivia-container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 30px;
+}
+
+#question-container {
+    margin-bottom: 30px;
+}
+
+#question {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#options-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option-btn {
+    padding: 12px 20px;
+    background-color: #f1f1f1;
+    border: 1px solid #d4af37;
+    border-radius: 8px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.option-btn:hover {
+    background-color: #d4af37;
+    color: white;
+    transform: scale(1.05);
+}
+
+#score-container {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #d4af37;
+    margin-bottom: 20px;
+}
+
+#next-button {
+    display: none;
+    padding: 15px 25px;
+    background: linear-gradient(145deg, #d4af37, #b8860b);
+    color: white;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s, background 0.3s;
+}
+
+#next-button:hover {
+    background: linear-gradient(145deg, #e5e4e2, #d4af37);
+    transform: scale(1.05);
 }
